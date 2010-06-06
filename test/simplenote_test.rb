@@ -1,6 +1,21 @@
 require 'test_helper'
 
 class SimpleNoteTest < Test::Unit::TestCase
+  context "initialize" do
+    setup do
+      SimpleNote.stubs(:post).returns("token")
+      @simplenote = SimpleNote.new("validaccount@example.com","token")  
+    end
+    
+    should "store the provided token" do
+      @simplenote.token.should == "token"
+    end
+
+    should "store the provided email" do
+      @simplenote.email.should == "validaccount@example.com"
+    end
+  end
+  
   context "login" do
     setup do
       SimpleNote.stubs(:post).returns("token")

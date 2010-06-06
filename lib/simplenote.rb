@@ -6,6 +6,17 @@ class SimpleNote
   include HTTParty
   attr_reader :token, :email
   base_uri 'https://simple-note.appspot.com/api'
+  
+  def initialize(*args)
+    if args.size == 1 || args.size > 2
+      raise SyntaxError, 'This method takes either 0 or 2 arguments'
+    else
+      if args.size == 2
+        @email = args[0] 
+        @token = args[1]
+      end
+    end
+  end
 
   def login(email, password)
     encoded_body = Base64.encode64({:email => email, :password => password}.to_params)
